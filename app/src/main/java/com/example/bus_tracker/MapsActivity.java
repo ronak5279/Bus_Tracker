@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,16 +15,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
-import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilter;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
@@ -52,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String BUSNUM;
     private int mInterval = 5000; // 5 seconds by default, can be changed later
     private Handler mHandler;
-    private ProgressBar mProgressBar;
+  //  private ProgressBar mProgressBar;
     Location mCurrentLocation;
 
     /**
@@ -75,10 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         buses = new ArrayList();
         BUSNUM = getIntent().getStringExtra("BUSNUM");
 
-        mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+       // mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
         // Initialize the progress bar
-        mProgressBar.setVisibility(ProgressBar.GONE);
+       // mProgressBar.setVisibility(ProgressBar.GONE);
 
 
         try {
@@ -87,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Mobile Service URL and key
             mClient = new MobileServiceClient(
                     "https://bus-tracker.azurewebsites.net",
-                    this).withFilter(new ProgressFilter());
+                    this);
 
             // Extend timeout from default of 10s to 20s
             mClient.setAndroidHttpClientFactory(new OkHttpClientFactory() {
@@ -227,9 +217,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the data from the marker.
-        Integer clickCount = (Integer) mProgressBar.getTag();
+      //  Integer clickCount = (Integer) mProgressBar.getTag();
 
-        // Check if a click count was set, then display the click count.
+        /* Check if a click count was set, then display the click count.
         if (clickCount != null) {
             clickCount = clickCount + 1;
             mProgressBar.setTag(0);
@@ -237,7 +227,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     marker.getTitle() +
                             " has been clicked " + clickCount + " times.",
                     Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
@@ -340,7 +330,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    private class ProgressFilter implements ServiceFilter {
+   /*  private class ProgressFilter implements ServiceFilter {
 
         @Override
         public ListenableFuture<ServiceFilterResponse> handleRequest(ServiceFilterRequest request, NextServiceFilterCallback nextServiceFilterCallback) {
@@ -381,6 +371,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return resultFuture;
         }
     }
-
+*/
 
 }
