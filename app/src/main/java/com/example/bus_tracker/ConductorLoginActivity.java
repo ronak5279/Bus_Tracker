@@ -23,21 +23,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
-import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilter;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
@@ -74,7 +65,7 @@ public class ConductorLoginActivity extends AppCompatActivity{
     /**
      * Progress spinner to use for table operations
      */
-    private ProgressBar mProgressBar;
+   // private ProgressBar mProgressBar;
 
     private CoordinatorLayout coordinatorLayout;
     private EditText CondIdEditText;
@@ -248,10 +239,10 @@ public class ConductorLoginActivity extends AppCompatActivity{
         logoImageView.setFocusableInTouchMode(true);
         logoImageView.requestFocus();
 
-        mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+       // mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
         // Initialize the progress bar
-        mProgressBar.setVisibility(ProgressBar.GONE);
+       // mProgressBar.setVisibility(ProgressBar.GONE);
 
         try {
             // Create the Mobile Service Client instance, using the provided
@@ -259,7 +250,7 @@ public class ConductorLoginActivity extends AppCompatActivity{
             // Mobile Service URL and key
             mClient = new MobileServiceClient(
                     "https://bus-tracker.azurewebsites.net",
-                    this).withFilter(new ConductorLoginActivity.ProgressFilter());
+                    this);
 
             // Extend timeout from default of 10s to 20s
             mClient.setAndroidHttpClientFactory(new OkHttpClientFactory() {
@@ -357,11 +348,11 @@ public class ConductorLoginActivity extends AppCompatActivity{
      * @param item
      *            The item to Add
      */
-    public Conductors addItemInTable(Conductors item) throws ExecutionException, InterruptedException {
+    public void addItemInTable(Conductors item) throws ExecutionException, InterruptedException {
 
         Conductors entity;
         entity = mConductorTable.insert(item).get();
-        return entity;
+
 
     }
 
@@ -466,7 +457,7 @@ public class ConductorLoginActivity extends AppCompatActivity{
     }
 
 
-    private class ProgressFilter implements ServiceFilter {
+   /* private class ProgressFilter implements ServiceFilter {
 
         @Override
         public ListenableFuture<ServiceFilterResponse> handleRequest(ServiceFilterRequest request, NextServiceFilterCallback nextServiceFilterCallback) {
@@ -506,6 +497,6 @@ public class ConductorLoginActivity extends AppCompatActivity{
 
             return resultFuture;
         }
-    }
+    }*/
 
 }
