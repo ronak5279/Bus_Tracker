@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sparse"
                     android:id="@+id/radioButton"
-                    android:checked="false"
+                    android:checked="true"
                     android:textSize="20sp"
                     android:padding="5dp" />
 
@@ -142,7 +142,7 @@
         android:text="Start "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/start"
         android:layout_alignParentBottom="true"
         android:onClick="start" />
 
