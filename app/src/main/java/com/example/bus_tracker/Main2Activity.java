@@ -14,12 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.bus_tracker.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,17 +26,9 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
-import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilter;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
-import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
@@ -93,7 +83,7 @@ public class Main2Activity extends Activity implements
     GoogleApiClient mGoogleApiClient;
     Location mCurrentLocation;
     String mLastUpdateTime;
-    private ProgressBar mProgressBar;
+   // private ProgressBar mProgressBar;
 
 
     protected void createLocationRequest() {
@@ -107,10 +97,10 @@ public class Main2Activity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
+     //   mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
         // Initialize the progress bar
-        mProgressBar.setVisibility(ProgressBar.GONE);
+     //   mProgressBar.setVisibility(ProgressBar.GONE);
 
         try {
             // Create the Mobile Service Client instance, using the provided
@@ -118,7 +108,7 @@ public class Main2Activity extends Activity implements
             // Mobile Service URL and key
             mClient = new MobileServiceClient(
                     "https://bus-tracker.azurewebsites.net",
-                    this).withFilter(new Main2Activity.ProgressFilter());
+                    this);
 
             // Extend timeout from default of 10s to 20s
             mClient.setAndroidHttpClientFactory(new OkHttpClientFactory() {
@@ -179,6 +169,8 @@ public class Main2Activity extends Activity implements
         Id = (TextView)findViewById(R.id.condId);
         Id.setText(condId);
 
+       // btnFusedLocation = (Button) findViewById(R.id.start);
+
         radioOccGroup=(RadioGroup)findViewById(R.id.radioGroup);
 
 
@@ -189,7 +181,7 @@ public class Main2Activity extends Activity implements
 
        // tvLocation = (TextView) findViewById(R.id.tvLocation);
 
-        Start = (Button) findViewById(R.id.button2);
+        Start = (Button) findViewById(R.id.start);
         Start.setOnClickListener(new View.OnClickListener() {
 
 
@@ -337,7 +329,7 @@ public class Main2Activity extends Activity implements
      * @param item
      *            The item to Add
      */
-    public Bus addItemInTable(Bus item) throws ExecutionException, InterruptedException {
+    public void addItemInTable(Bus item) throws ExecutionException, InterruptedException {
 
         Bus entity;
 
@@ -352,7 +344,7 @@ public class Main2Activity extends Activity implements
             else{
             entity = mBusLocation.insert(item).get();
         }
-        return entity;
+      //  return entity;
 
     }
 
@@ -528,7 +520,7 @@ public class Main2Activity extends Activity implements
     }
 
 
-    private class ProgressFilter implements ServiceFilter {
+/**    private class ProgressFilter implements ServiceFilter {
 
         @Override
         public ListenableFuture<ServiceFilterResponse> handleRequest(ServiceFilterRequest request, NextServiceFilterCallback nextServiceFilterCallback) {
@@ -568,7 +560,7 @@ public class Main2Activity extends Activity implements
 
             return resultFuture;
         }
-    }
+    }*/
 
 }
 
